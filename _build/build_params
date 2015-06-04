@@ -65,7 +65,6 @@ do{ my $x = [
          'get_options' => {},
          'dist_version_from' => 'lib/cWorld/crane_nature2015.pm',
          '_added_to_INC' => [
-                              '/home/bryan/perl5/lib/perl5/x86_64-linux-thread-multi',
                               '/home/bryan/perl5/lib/perl5'
                             ],
          'auto_configure_requires' => 1,
