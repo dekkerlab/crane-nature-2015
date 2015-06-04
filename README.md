@@ -22,7 +22,18 @@ crane-nature-2015/
 	matrix2insulation.pl - Calculate insulation vector from matrix (tsv) file (matrix.gz)
 ```
 ## Installation
-
+	
+	Download the project.
+	```
+	wget https://github.com/blajoie/crane-nature-2015/archive/master.zip
+	```
+	or clone the git project
+	```
+	$ git clone git@github.com:blajoie/crane-nature-2015.git
+	```
+	
+	Unzip the master.
+	
 	matrix2insulation.pl requires the cWorld::crane_nature2015 perl module.
 	To install the module:
 	
@@ -34,7 +45,10 @@ crane-nature-2015/
 	```
 	
 	After installing the module, you should be free to run the crane-nature-2015/matrix2insulation.pl script.
-	
+	```
+	$ perl crane-nature-2015/matrix2insulation.pl
+	```
+
 ## Usage
 
 ```
