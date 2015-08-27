@@ -1,3 +1,6 @@
+# TO INSTALL PERL MODULE
+
 perl Build.pl
 ./Build
 ./Build install
+
