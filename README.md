@@ -18,14 +18,14 @@ DOI: 10.1038/nature14450
 Code associated with paper.
 
 ```
-crane-nature-2015/
+scripts/
 	matrix2insulation.pl - Calculate insulation vector from matrix (tsv) file (matrix.gz)
 ```
 ## Installation
 	
 	Download the project.
 	```
-	wget https://github.com/blajoie/crane-nature-2015/archive/master.zip
+	wget https://github.com/blajoie/scripts/archive/master.zip
 	```
 	or clone the git project
 	```
@@ -34,25 +34,28 @@ crane-nature-2015/
 	
 	Unzip the master.
 	
-	matrix2insulation.pl requires the cWorld::crane_nature2015 perl module.
+	matrix2insulation.pl requires the cworld::crane_nature2015 perl module.
 	To install the module:
 	
 	```
 	perl Build.PL
 	./Build
-	./Build test
 	./Build install
 	```
 	
-	After installing the module, you should be free to run the crane-nature-2015/matrix2insulation.pl script.
+	After installing the module, you should be free to run the scripts/matrix2insulation.pl script.
 	```
-	$ perl crane-nature-2015/matrix2insulation.pl
+	$ perl scripts/matrix2insulation.pl
 	```
 
 ## Usage
 
 ```
-$ perl crane-nature-2015/matrix2insulation.pl
+
+See wiki for format spec.
+https://github.com/blajoie/crane-nature-2015/wiki
+
+$ perl scripts/matrix2insulation.pl
 
 Tool:           matrix2insulation.pl
 Version:        1.0.0
@@ -94,14 +97,15 @@ Contact:
         http://my5C.umassmed.edu
         my5C.help@umassmed.edu
         https://github.com/blajoie/crane-nature-2015
+
 ```
 
 ## Published Parameters
 
 To re-create chrX data from paper (same options for autosomes):
 ```
-	perl crane-nature-2015/matrix2insulation.pl -i test/input/SRy93-DpnII__10kb__chrX.matrix.gz -is 500000 -ids 200000 -im mean -bmoe 3 -nt 0.1 -v
-	perl crane-nature-2015/matrix2insulation.pl -i test/input/N2-DpnII__10kb__chrX.matrix.gz -is 500000 -ids 200000 -im mean -bmoe 3 -nt 0.1 -v
+	perl scripts/matrix2insulation.pl -i test/input/SRy93-DpnII__10kb__chrX.matrix.gz -is 500000 -ids 200000 -im mean -bmoe 3 -nt 0.1 -v
+	perl scripts/matrix2insulation.pl -i test/input/N2-DpnII__10kb__chrX.matrix.gz -is 500000 -ids 200000 -im mean -bmoe 3 -nt 0.1 -v
 ```
 
 ## Bugs and Feedback

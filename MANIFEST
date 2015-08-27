@@ -1,0 +1,25 @@
+Build.pl
+INSTALL
+lib/cworld/crane_nature2015.pm
+LICENSE
+MANIFEST			This list of files
+META.json
+META.yml
+README.md
+scripts/matrix2insulation.pl
+test/input/N2-DpnII__10kb__chrX.matrix.gz
+test/input/N2-DpnII__10kb__chrX.png
+test/input/SRy93-DpnII__10kb__chrX.matrix.gz
+test/input/SRy93-DpnII__10kb__chrX.png
+test/output/N2-DpnII__10kb__chrX.is500001.ids200001.insulation
+test/output/N2-DpnII__10kb__chrX.is500001.ids200001.insulation.bedGraph
+test/output/N2-DpnII__10kb__chrX.is500001.ids200001.insulation.boundaries
+test/output/N2-DpnII__10kb__chrX.is500001.ids200001.insulation.boundaries.bed
+test/output/N2-DpnII__10kb__chrX.is500001.ids200001.subset.matrix.gz
+test/output/N2-DpnII__10kb__chrX.is500001.ids200001.subset.png
+test/output/SRy93-DpnII__10kb__chrX.is500001.ids200001.insulation
+test/output/SRy93-DpnII__10kb__chrX.is500001.ids200001.insulation.bedGraph
+test/output/SRy93-DpnII__10kb__chrX.is500001.ids200001.insulation.boundaries
+test/output/SRy93-DpnII__10kb__chrX.is500001.ids200001.insulation.boundaries.bed
+test/output/SRy93-DpnII__10kb__chrX.is500001.ids200001.subset.matrix.gz
+test/output/SRy93-DpnII__10kb__chrX.is500001.ids200001.subset.png
