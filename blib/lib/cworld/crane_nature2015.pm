@@ -1,4 +1,4 @@
-package cWorld::crane_nature2015;
+package cworld::crane_nature2015;
 
 use strict; 
 use warnings;

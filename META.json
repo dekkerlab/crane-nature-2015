@@ -3,7 +3,7 @@
    "author" : [
       "Bryan R. Lajoie <bryan.lajoie@umassmed.edu>"
    ],
-   "dynamic_config" : 0,
+   "dynamic_config" : 1,
    "generated_by" : "Module::Build version 0.4, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"

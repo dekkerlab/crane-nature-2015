@@ -39,10 +39,10 @@ do{ my $x = [
          'test_file_exts' => [
                                '.t'
                              ],
-         'dist_name' => 'cWorld-crane_nature2015',
+         'dist_name' => 'cworld-crane_nature2015',
          'has_config_data' => undef,
          'install_base' => '/home/bryan/perl5',
-         'module_name' => 'cWorld::crane_nature2015',
+         'module_name' => 'cworld::crane_nature2015',
          'recursive_test_files' => undef,
          'libdoc_dirs' => [
                             'blib/lib',
@@ -63,8 +63,9 @@ do{ my $x = [
          'debug' => undef,
          'meta_merge' => {},
          'get_options' => {},
-         'dist_version_from' => 'lib/cWorld/crane_nature2015.pm',
+         'dist_version_from' => 'lib/cworld/crane_nature2015.pm',
          '_added_to_INC' => [
+                              '/home/bryan/perl5/lib/perl5/x86_64-linux-thread-multi',
                               '/home/bryan/perl5/lib/perl5'
                             ],
          'auto_configure_requires' => 1,

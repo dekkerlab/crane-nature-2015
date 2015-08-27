@@ -1,4 +1,3 @@
-perl Build.PL
+perl Build.pl
 ./Build
-./Build test
 ./Build install

@@ -1,7 +1,7 @@
 use Module::Build;
 my $build = Module::Build->new
 	(
-	module_name => 'cWorld::crane_nature2015',
+	module_name => 'cworld::crane_nature2015',
 	license  => 'perl',
 	requires => {
 				'perl'          => '5.6.1',

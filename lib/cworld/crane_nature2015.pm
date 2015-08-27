@@ -1,4 +1,4 @@
-package cWorld::crane_nature2015;
+package cworld::crane_nature2015;
 
 use strict; 
 use warnings;
@@ -716,8 +716,7 @@ sub checkHeaders($) {
 			}
 			undef %tmpXHeaders;
 		}
-		$lineNum++;
-		#last;
+		last;
 	}
 	
 	close(IN);
@@ -776,8 +775,12 @@ sub parseHeaders($) {
 			
 		} else {
 			
-			# if X is > 10000
-			if(($numXHeaders > 20000) and (($numLines - $numXHeaders) >= 1)) {
+			my @data=split(/\t/,$line);
+			my $dsize=@data;
+			my $yHead=$data[0];
+			
+			# if X is > 10000, assume symmetrical
+			if(($numXHeaders > 10000) and ($numLines - ($numXHeaders-1) >= 0) and ($yHead eq $inc2header->{ x }->{0})) {
 				close(IN);
 				$header2inc->{ y }=$header2inc->{ x };
 				$inc2header->{ y }=$inc2header->{ x };
@@ -786,9 +789,7 @@ sub parseHeaders($) {
 				return($inc2header,$header2inc);
 			}
 			
-			my @data=split(/\t/,$line);
-			my $dsize=@data;
-			my $yHead=$data[0];
+			
 			$noHeaderFlag = 1 if($yHead =~ (/^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/));
 			$noHeaderFlag = 1 if(exists($tmpYHeaders{$yHead}));
 			die("\nERROR: Must supply headered matrix!\n\n") if(($headerCornerFlag == 0) and ($noHeaderFlag == 1));
@@ -796,7 +797,6 @@ sub parseHeaders($) {
 			$header2inc->{ y }->{$yHead}=$numYHeaders;
 			$inc2header->{ y }->{$numYHeaders}=$yHead;
 			$numYHeaders++;
-			die("\nERROR - matrix too large! > 20000\n\n") if($numYHeaders > 20000);
 		}
 		$lineNum++;
 	}
@@ -1029,7 +1029,6 @@ sub getData($$;$$$$$) {
 	my $progressBucketSize=ceil($nLines / 1000);
 	my $pcComplete=0;
 	
-	my $maxNonZeros = (15000*15000);
 	my $nNonZeros=0;
 	
 	my %headerObjects=();
@@ -1096,8 +1095,6 @@ sub getData($$;$$$$$) {
 				if(($symmetricalFlag == 1) and (exists($matrix{$xIndex}{$yIndex}))) {
 					print STDERR "\nERROR - data is not symmetrical ($xIndex,$yIndex) [$cScore vs ".$matrix{$xIndex}{$yIndex} ."]\n\n" if(($matrix{$xIndex}{$yIndex} != $cScore) and ($subsetMode == 0));
 				}
-				
-				die("error - matrix is too large ($nNonZeros > $maxNonZeros)!\n") if($nNonZeros > $maxNonZeros);
 				
 				$matrix{$yIndex}{$xIndex}=$cScore;
 				$nNonZeros++
@@ -1191,13 +1188,6 @@ sub checkMatrixSize($) {
 	my $numXHeaders=keys(%{$header2inc->{ x }});
 	
 	my $numInteractions = ($numYHeaders * $numXHeaders);
-	my $maxInteractions = (16000*16000);
-	
-	if($numInteractions > $maxInteractions) {
-		die("\nERROR: matrix interactions too large - cannot handle in memory [$numYHeaders x $numXHeaders] (".commify($numInteractions)." > ".commify($maxInteractions)." limit)\n");
-	} elsif(($numYHeaders > 20000) or ($numXHeaders > 20000)) {
-		die("\nERROR: matrix interactions too large - cannot handle in memory [$numYHeaders x $numXHeaders] (".commify($numInteractions)." > ".commify($maxInteractions)." limit)\n");
-	}
 }
 
 sub getHeaderSpacing($$) {
@@ -1529,7 +1519,6 @@ sub getMatrixObject($;$$) {
 	# get matrix headers
 	my ($headerFlag)=checkHeaders($inputMatrix);
 	
-	#print "parsing headers...\n";
 	my ($inc2header,$header2inc)=parseHeaders($inputMatrix);
 	my $numYHeaders=keys(%{$header2inc->{ y }});
 	my $numXHeaders=keys(%{$header2inc->{ x }});
@@ -1556,12 +1545,6 @@ sub getMatrixObject($;$$) {
 	if(($numTotalHeaders < 10000) and ($symmetricalFlag == 1) and ($mode ne "lite")) {
 		my ($NA_rows)=getNARows($inputMatrix);
 		my $NA_cols=$NA_rows;
-		if($symmetricalFlag == 0) {
-			#print "transposing...\n";
-			#my $transposedMatrix=transposeMatrix($inputMatrix);
-			#($NA_cols)=getNARows($transposedMatrix);
-			#system("rm '$transposedMatrix'");
-		}
 	
 		my %NA_rowcols_hash=(%$NA_rows,%$NA_cols);
 		$NA_rowcols=\%NA_rowcols_hash;
@@ -1586,10 +1569,10 @@ sub getMatrixObject($;$$) {
 		print "\tmatrixHeaderFlag\t$headerFlag\n";
 		print "\tequalHeaderSizing\t$equalSizingFlag\n";
 		print "\tequalHeaderSpacing\t$equalSpacingFlag\n";
-		print "\theaderSizing\t$headerSizing\n";
+		print "\tequalHeaderFlag\t$equalHeaderFlag\n";
+        print "\theaderSizing\t$headerSizing\n";
 		print "\theaderSpacing\t$headerSpacing\n";
 		print "\tbinningStep\t$binningStep\n";
-		print "\tequalHeaderFlag\t$equalHeaderFlag\n";
 		print "\t# contigs\t$numContigs\n";
 		print "\t# yHeaders\t$numYHeaders\n";
 		print "\t# xHeaders\t$numXHeaders\n";

@@ -15,7 +15,7 @@ use List::Util qw[min max];
 use Cwd 'abs_path';
 use Cwd;
 
-use cWorld::crane_nature2015 qw(:all);
+use cworld::crane_nature2015 qw(:all);
 
 sub check_options {
 	my $opts = shift;
@@ -403,7 +403,7 @@ sub detectInsulationBoundaries($$$$$$) {
 		
 		$leftSearchIndex=$yIndex-1;
 		# while left is increasing
-		while( ($leftSearchIndex > 0) and exists($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex-1}}) and ($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex-1}} ne "NA") and ($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex-1}} >= $matrixDelta->{$inc2header->{ y }->{$leftSearchIndex}}) ) {
+		while( ($leftSearchIndex > 0) and ($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex}} ne "NA") and ($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex-1}} ne "NA") and ($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex-1}} >= $matrixDelta->{$inc2header->{ y }->{$leftSearchIndex}}) ) {
 			$leftSearchIndex--;
 		}
 		my $leftDeltaBound="NA";
@@ -411,7 +411,7 @@ sub detectInsulationBoundaries($$$$$$) {
 		
 		$rightSearchIndex=$yIndex+1;
 		# while right is decreasing
-		while( ($rightSearchIndex < ($numHeaders-2)) and (exists($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex+1}})) and ($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex+1}} ne "NA") and ($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex+1}} <= $matrixDelta->{$inc2header->{ y }->{$rightSearchIndex}}) ) {
+		while( ($rightSearchIndex < ($numHeaders-2)) and ($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex}} ne "NA") and ($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex+1}} ne "NA") and ($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex+1}} <= $matrixDelta->{$inc2header->{ y }->{$rightSearchIndex}}) ) {
 			$rightSearchIndex++;
 		}
 		my $rightDeltaBound="NA";
@@ -420,18 +420,6 @@ sub detectInsulationBoundaries($$$$$$) {
 		my $valleyDeltaStrength="NA";
 		$valleyDeltaStrength=($leftDeltaBound-$rightDeltaBound) if(($leftDeltaBound ne "NA") and ($rightDeltaBound ne "NA"));
 		
-		$leftSearchIndex=$yIndex-1;
-		# while left is increasing
-		while( ($leftSearchIndex > 0) and exists($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex-1}}) and ($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex-1}} ne "NA") and ($matrixDelta->{$inc2header->{ y }->{$leftSearchIndex-1}} >= $matrixDelta->{$inc2header->{ y }->{$leftSearchIndex}}) ) {
-			$leftSearchIndex--;
-		}
-		
-		$rightSearchIndex=$yIndex+1;
-		# while right is decreasing
-		while( ($rightSearchIndex < ($numHeaders-2)) and (exists($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex+1}})) and ($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex+1}} ne "NA") and ($matrixDelta->{$inc2header->{ y }->{$rightSearchIndex+1}} >= $matrixDelta->{$inc2header->{ y }->{$rightSearchIndex}}) ) {
-			$rightSearchIndex++;
-		}
-			
 		next if($valleyDeltaStrength eq "NA");
 		next if($valleyDeltaStrength < $noiseThreshold);
 			
@@ -557,9 +545,11 @@ my $numYHeaders=$matrixObject->{ numYHeaders };
 my $numXHeaders=$matrixObject->{ numXHeaders };
 my $numTotalHeaders=$matrixObject->{ numTotalHeaders };
 my $missingValue=$matrixObject->{ missingValue };
-	
-my $symmetricalFlag=isSymmetrical($inputMatrix);
-die("\nERROR: matrix must be symmetrical!\n") if($symmetricalFlag == 0);
+my $equalHeaders=$matrixObject->{ equalHeaderFlag };
+my $symmetrical=$matrixObject->{ symmetrical };
+
+die("\nERROR: matrix must be symmetrical!\n") if(!$symmetrical);
+die("\nERROR: matrix must be equally-binned!\n") if(!$equalHeaders);
 
 my $numHeaders=$numYHeaders=$numXHeaders;
 
@@ -599,11 +589,6 @@ $matrixObject->{ missingValue }=-7337;
 $missingValue=$matrixObject->{ missingValue };
 
 print "\n" if($verbose);
-
-my $subsetMatrixFile=$inputMatrixName.".subset.matrix.gz";
-print "Writing matrix to file ($subsetMatrixFile)...\n" if($verbose);
-writeMatrix($matrix,$inc2header,$subsetMatrixFile,$missingValue);
-print "\tcomplete\n\n" if($verbose);
 
 # calculate the insulation index for each bin and store in a new data struct.
 print "calculating insulation index...\n" if($verbose);
