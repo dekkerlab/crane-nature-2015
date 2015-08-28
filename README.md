@@ -19,34 +19,37 @@ Code associated with paper.
 
 ```
 scripts/
-	matrix2insulation.pl - Calculate insulation vector from matrix (tsv) file (matrix.gz)
+    matrix2insulation.pl - Calculate insulation vector from matrix (tsv) file (matrix.gz)
 ```
 ## Installation
-	
-	Download the project.
-	```
-	wget https://github.com/blajoie/scripts/archive/master.zip
-	```
-	or clone the git project
-	```
-	$ git clone git@github.com:blajoie/crane-nature-2015.git
-	```
-	
-	Unzip the master.
-	
-	matrix2insulation.pl requires the cworld::crane_nature2015 perl module.
-	To install the module:
-	
-	```
-	perl Build.PL
-	./Build
-	./Build install
-	```
-	
-	After installing the module, you should be free to run the scripts/matrix2insulation.pl script.
-	```
-	$ perl scripts/matrix2insulation.pl
-	```
+    
+    Download the project.
+    ```
+    wget -O crane-nature-2015.zip https://github.com/blajoie/crane-nature-2015/archive/master.zip
+    ```
+    Or clone the git project
+    ```
+    [ssh] - git clone git@github.com:blajoie/crane-nature-2015.git
+    [https] - git clone https://github.com/blajoie/crane-nature-2015.git
+    ```
+
+    Unzip the master:
+    ```
+    unzip crane-nature-2015.zip
+    cd crane-nature-2015/
+    ```
+    
+    To install the module:
+    ```
+    perl Build.PL
+    ./Build
+    ./Build install
+    ```
+    
+    After installing the module, you should be free to run the scripts/matrix2insulation.pl script.
+    ```
+    $ perl scripts/matrix2insulation.pl
+    ```
 
 ## Usage
 
@@ -104,8 +107,8 @@ Contact:
 
 To re-create chrX data from paper (same options for autosomes):
 ```
-	perl scripts/matrix2insulation.pl -i test/input/SRy93-DpnII__10kb__chrX.matrix.gz -is 500000 -ids 200000 -im mean -bmoe 3 -nt 0.1 -v
-	perl scripts/matrix2insulation.pl -i test/input/N2-DpnII__10kb__chrX.matrix.gz -is 500000 -ids 200000 -im mean -bmoe 3 -nt 0.1 -v
+    perl scripts/matrix2insulation.pl -i test/input/SRy93-DpnII__10kb__chrX.matrix.gz -is 500000 -ids 200000 -im mean -bmoe 3 -nt 0.1 -v
+    perl scripts/matrix2insulation.pl -i test/input/N2-DpnII__10kb__chrX.matrix.gz -is 500000 -ids 200000 -im mean -bmoe 3 -nt 0.1 -v
 ```
 
 ## Bugs and Feedback
