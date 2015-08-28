@@ -46,7 +46,7 @@ scripts/
     ./Build install
     ```
     
-    After installing the module, you should be free to run the scripts/matrix2insulation.pl script.
+    After installing the module, you should be free to run the matrix2insulation.pl script:
     ```
     $ perl scripts/matrix2insulation.pl
     ```
